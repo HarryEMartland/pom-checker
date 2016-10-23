@@ -12,7 +12,7 @@ $(function () {
 
     function checkDependencies () {
         var pomUrl = $('#pom-url-txt').val();
-        $.get('http://localhost:8080/upToDate/?mavenUrl=' + pomUrl, function (response) {
+        $.get(window.location.href +'upToDate/?mavenUrl=' + pomUrl, function (response) {
             var badgeUrl = window.location.href + "badge/upToDate.svg?mavenUrl=" + pomUrl;
             $('#badge-image').attr('src', badgeUrl);
             $('#badge-link').text(badgeUrl);
