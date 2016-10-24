@@ -3,4 +3,5 @@ jdk:
   - oraclejdk8
 sudo: false
 script: mvn clean verify
+script: chome +x ./deploy.sh
 script: ./deploy.sh
