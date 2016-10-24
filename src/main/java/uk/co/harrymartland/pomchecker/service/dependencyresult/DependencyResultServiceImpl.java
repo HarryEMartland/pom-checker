@@ -1,5 +1,6 @@
 package uk.co.harrymartland.pomchecker.service.dependencyresult;
 
+import static java.util.Objects.isNull;
 import static uk.co.harrymartland.pomchecker.domain.result.DependencyDifference.BEHIND;
 import static uk.co.harrymartland.pomchecker.domain.result.DependencyDifference.IGNORED;
 import static uk.co.harrymartland.pomchecker.domain.result.DependencyDifference.MINOR_VERSION_BEHIND;
@@ -22,13 +23,18 @@ public class DependencyResultServiceImpl implements DependencyResultService {
 
         final String latestVersion = getLatestVersionExcludingVersions(metaData, ignoreVersionsContaining);
         final DependencyDifference difference;
-        if (ignoreDependencies.contains(dependency.getGroupId() + "." + dependency.getArtifactId())) {
+        if (isIgnoredDependency(dependency, ignoreDependencies) || isNull(dependency.getVersion())) {
             difference = IGNORED;
-        } else {
+        }
+        else {
             difference = getDifference(dependency.getVersion(), latestVersion);
         }
         return new DependencyResult(dependency.getArtifactId(), dependency.getGroupId(),
                 dependency.getVersion(), latestVersion, difference);
+    }
+
+    private boolean isIgnoredDependency(Dependency dependency, List<String> ignoreDependencies) {
+        return ignoreDependencies.contains(dependency.getGroupId() + "." + dependency.getArtifactId());
     }
 
     private String getLatestVersionExcludingVersions(MetaData metaData, List<String> ignoreVersionsContaining) {
