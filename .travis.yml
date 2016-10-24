@@ -3,3 +3,4 @@ jdk:
   - oraclejdk8
 sudo: false
 script: mvn clean verify
+script: curl -u "$ciDeployUsername:$ciDeployPassword" --upload-file ./target/maven-checker*.war "$ciDeployServer/manager/text/deploy?path=/$ciDeployContext&update=true"
