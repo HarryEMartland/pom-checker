@@ -1,0 +1,1 @@
+curl -u "$CI_DEPLOY_USERNAME:$CI_DEPLOY_PASSWORD" --upload-file ./target/pom-checker*.war "$CI_DEPLOY_SERVER/manager/text/deploy?path=/$CI_DEPLOY_CONTEXT&update=true"
