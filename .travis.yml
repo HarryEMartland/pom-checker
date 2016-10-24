@@ -5,7 +5,6 @@ sudo: false
 script:
   - echo $CI_DEPLOY_SERVER
   - echo $CI_DEPLOY_CONTEXT
-script:
   - mvn clean verify
   - chmod ugo+x ./deploy.sh
   - ./deploy.sh
