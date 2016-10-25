@@ -18,12 +18,12 @@ $(function () {
             $('#badge-link').text(badgeUrl);
             dependencyList.empty();
             $.each(response.dependencyResults, function (i, dependency) {
-                dependencyList.append("<li class='list-group-item'> " + getDifferenceLabel(dependency.dependencyDifference) + dependency.group + dependency.artifact + ": " + dependency.projectVersion + "</li>")
+                dependencyList.append("<li class='list-group-item'> " + getDifferenceLabel(dependency.dependencyDifference, dependency.latestVersion) + dependency.group + dependency.artifact + ": " + dependency.projectVersion + "</li>")
             });
         })
     }
 
-    function getDifferenceLabel(difference) {
+    function getDifferenceLabel(difference, version) {
 
         var color = "label-default";
         if (difference === "UP_TO_DATE") {
@@ -34,7 +34,7 @@ $(function () {
             color = "label-warning";
         }
 
-        return "<span class='pull-right label " + color + "'>" + difference + "</span>"
+        return "<span class='pull-right label " + color + "' title='"+version+"'>" + difference + "</span>"
     }
 
 });
