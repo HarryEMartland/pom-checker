@@ -6,7 +6,7 @@
 
     <groupId>uk.co.harrymartland</groupId>
     <artifactId>pom-checker</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>LATEST-DEV</version>
     <packaging>war</packaging>
 
     <properties>
