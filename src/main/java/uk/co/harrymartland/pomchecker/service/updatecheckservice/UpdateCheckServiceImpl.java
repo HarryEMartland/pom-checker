@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.async.DeferredResult;
 import uk.co.harrymartland.pomchecker.domain.pom.Dependency;
 import uk.co.harrymartland.pomchecker.domain.pom.Project;
 import uk.co.harrymartland.pomchecker.domain.result.DependencyDifference;
@@ -58,12 +57,6 @@ public class UpdateCheckServiceImpl implements UpdateCheckService {
     private <T> CompletableFuture<List<CompletableFuture<T>>> ofAll(List<CompletableFuture<T>> join) {
         return CompletableFuture.allOf(join.toArray(new CompletableFuture[join.size()]))
                 .thenApplyAsync(v -> join);
-    }
-
-    private DeferredResult<UpdateCheckResult> setErrorResult(Throwable e, DeferredResult<UpdateCheckResult> deferredResult) {
-        UpdateCheckResult updateCheckResult = new UpdateCheckResult(e);
-        deferredResult.setResult(updateCheckResult);
-        return deferredResult;
     }
 
     private UpdateCheckResult createResult(List<CompletableFuture<DependencyResult>> mavenSearchStream) {
