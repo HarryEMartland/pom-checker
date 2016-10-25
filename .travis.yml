@@ -4,5 +4,11 @@ jdk:
 sudo: false
 script:
   - mvn clean verify
-  - chmod ugo+x ./deploy.sh
-  - curl -vvv -u "$CI_DEPLOY_USERNAME:$CI_DEPLOY_PASSWORD" --upload-file ./target/pom-checker*.war "$CI_DEPLOY_SERVER/manager/text/deploy?path=/$CI_DEPLOY_CONTEXT&update=true"
+deploy:
+  provider: releases
+  api_key: $GITHUB_OAUTH_TOKEN
+  file: "./target/pom-checker-$TRAVIS_TAG.war"
+  skip_cleanup: true
+  on:
+    branch: master
+    tags: true
