@@ -14,11 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jmx.export.MBeanExporter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import uk.co.harrymartland.pomchecker.domain.maven.MetaData;
 import uk.co.harrymartland.pomchecker.domain.pom.Project;
 
 @Configuration
-public class MavenCheckerConfig {
+public class MavenCheckerConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public CloseableHttpAsyncClient httpAsyncClient() {
