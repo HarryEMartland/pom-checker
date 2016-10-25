@@ -2,18 +2,22 @@ $(function () {
 
     var dependencyList = $('#dependency-results-list-group');
 
+    $('#pom-url-txt').val(getURLParameter("mavenUrl"));
+    if($('#pom-url-txt').val() != ""){
+        checkDependencies();
+    }
 
     $('#check-pom-btn').on('click', checkDependencies);
-    $('#pom-url-txt').keyup( function (e) {
-        if(e.keyCode ==13){
+    $('#pom-url-txt').keyup(function (e) {
+        if (e.keyCode == 13) {
             checkDependencies(e);
         }
     });
 
-    function checkDependencies () {
+    function checkDependencies() {
         var pomUrl = $('#pom-url-txt').val();
-        $.get(window.location.href +'upToDate/?mavenUrl=' + pomUrl, function (response) {
-            var badgeUrl = window.location.href + "badge/upToDate.svg?mavenUrl=" + pomUrl;
+        $.get(window.location.origin +'/upToDate/?mavenUrl=' + pomUrl, function (response) {
+            var badgeUrl = window.location.origin + "/badge/upToDate.svg?mavenUrl=" + pomUrl;
             $('#badge-image').attr('src', badgeUrl);
             $('#badge-link').text(badgeUrl);
             dependencyList.empty();
@@ -34,7 +38,18 @@ $(function () {
             color = "label-warning";
         }
 
-        return "<span class='pull-right label " + color + "' title='"+version+"'>" + difference + "</span>"
+        return "<span class='pull-right label " + color + "' title='" + version + "'>" + difference + "</span>"
+    }
+
+    function getURLParameter(sParam) {
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        for (var i = 0; i < sURLVariables.length; i++) {
+            var sParameterName = sURLVariables[i].split('=');
+            if (sParameterName[0] == sParam) {
+                return sParameterName[1];
+            }
+        }
     }
 
 });
