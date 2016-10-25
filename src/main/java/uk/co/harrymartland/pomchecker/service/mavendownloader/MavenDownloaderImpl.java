@@ -22,7 +22,7 @@ public class MavenDownloaderImpl implements MavenDownloader {
 
     @Override
     @Cacheable("mavenDownload")
-    public synchronized CompletableFuture<Project> download(String url) {
+    public CompletableFuture<Project> download(String url) {
         HttpGet httpGet = new HttpGet(url);
         return httpClient.request(httpGet).thenApplyAsync(this::mapToProject);
     }
