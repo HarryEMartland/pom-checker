@@ -3,6 +3,7 @@ jdk:
   - oraclejdk8
 sudo: false
 script:
+  - mvn versions:set -DnewVersion=`git describe --tags`
   - mvn clean verify
 deploy:
   provider: releases
