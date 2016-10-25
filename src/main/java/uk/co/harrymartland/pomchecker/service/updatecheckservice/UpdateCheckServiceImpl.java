@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.async.DeferredResult;
 import uk.co.harrymartland.pomchecker.domain.pom.Dependency;
+import uk.co.harrymartland.pomchecker.domain.pom.Project;
 import uk.co.harrymartland.pomchecker.domain.result.DependencyDifference;
 import uk.co.harrymartland.pomchecker.domain.result.DependencyResult;
 import uk.co.harrymartland.pomchecker.domain.result.UpdateCheckResult;
@@ -32,11 +34,18 @@ public class UpdateCheckServiceImpl implements UpdateCheckService {
     @Override
     public CompletableFuture<UpdateCheckResult> check(String mavenUrl, List<String> ignoreDependencies, List<String> ignoreVersionsContaining) {
 
-        return mavenDownloader.download(mavenUrl).thenCompose(pom -> ofAll(pom.getDependencies()
-                .stream()
+        return mavenDownloader.download(mavenUrl).thenCompose(pom -> ofAll(getDependencies(pom)
                 .map(dependency -> getResult(dependency, ignoreDependencies, ignoreVersionsContaining))
                 .collect(Collectors.toList()))
                 .thenApplyAsync(this::createResult));
+    }
+
+    private Stream<Dependency> getDependencies(Project pom){
+        if(Objects.nonNull(pom.getParent())){
+            return Stream.concat(pom.getDependencies().stream(), Stream.of(pom.getParent()));
+        }else {
+            return pom.getDependencies().stream();
+        }
     }
 
     private CompletableFuture<DependencyResult> getResult(Dependency dependency, List<String> ignoreDependencies, List<String> ignoreVersions) {
