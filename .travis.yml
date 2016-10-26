@@ -1,15 +1,21 @@
+sudo: required
+services:
+  - docker
 language: java
 jdk:
   - oraclejdk8
-sudo: false
 script:
   - mvn versions:set -DnewVersion=`git describe --tags`
   - mvn clean verify
+  - docker build -t harrymartland/pom-checker:LATEST-DEV .
 deploy:
   provider: releases
   api_key: $GITHUB_OAUTH_TOKEN
   file: "./target/pom-checker-$TRAVIS_TAG.war"
   skip_cleanup: true
+  script:
+    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+    - docker push harrymartland/pom-checker:LATEST-DEV
   on:
     branch: master
     tags: true
