@@ -8,14 +8,16 @@ script:
   - mvn versions:set -DnewVersion=`git describe --tags`
   - mvn clean verify
   - docker build --build-arg GIT_VERSION=`git describe --tags`  -t harrymartland/pom-checker:`git describe --tags` .
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push harrymartland/pom-checker:`git describe --tags`;
+    fi
 deploy:
   provider: releases
   api_key: $GITHUB_OAUTH_TOKEN
   file: "./target/pom-checker-$TRAVIS_TAG.war"
   skip_cleanup: true
-  script:
-    - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-    - docker push harrymartland/pom-checker:`git describe --tags`
   on:
     branch: master
     tags: true
