@@ -7,7 +7,7 @@ jdk:
 script:
   - mvn versions:set -DnewVersion=`git describe --tags`
   - mvn clean verify
-  - docker build -t harrymartland/pom-checker:`git describe --tags` .
+  - docker build --build-arg GIT_VERSION=`git describe --tags`  -t harrymartland/pom-checker:`git describe --tags` .
 deploy:
   provider: releases
   api_key: $GITHUB_OAUTH_TOKEN
