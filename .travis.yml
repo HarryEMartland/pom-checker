@@ -9,7 +9,7 @@ script:
   - mvn clean verify
   - docker build --build-arg GIT_VERSION=`git describe --tags`  -t harrymartland/pom-checker:`git describe --tags` .
 after_success:
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+  - if [ "$TRAVIS_BRANCH" == "master" ] && [ -n "$TRAVIS_TAG" ]; then
     docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
     docker push harrymartland/pom-checker:`git describe --tags`;
     fi
