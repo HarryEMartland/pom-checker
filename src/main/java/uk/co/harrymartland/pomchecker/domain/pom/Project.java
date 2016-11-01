@@ -1,5 +1,6 @@
 package uk.co.harrymartland.pomchecker.domain.pom;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -13,7 +14,7 @@ public class Project {
 
     @XmlElementWrapper(name = "dependencies", namespace = "http://maven.apache.org/POM/4.0.0")
     @XmlElement(name = "dependency", namespace = "http://maven.apache.org/POM/4.0.0")
-    private List<Dependency> dependencies;
+    private List<Dependency> dependencies = new ArrayList<>();
 
     public List<Dependency> getDependencies() {
         return dependencies;
