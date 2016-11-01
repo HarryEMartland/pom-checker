@@ -6,34 +6,36 @@
 </head>
 <body>
 
-    <div class="container">
+<div class="container">
+    <div class="page-header">
         <h1>Pom Dependency Checker</h1>
-
-        <div class="row">
-            <div class="col-lg-10">
-                <input class="form-control input-lg" name="pom-url-txt" id="pom-url-txt" type="text" placeholder="pom.xml url">
-            </div>
-            <div class="col-lg-2">
-                <button type="button" id="check-pom-btn" class="btn btn-primary btn-lg" style="width: 100%;">Check</button>
-            </div>
-        </div>
-
-        <div class="row" style="margin-top: 20px;">
-            <div class="col-lg-12">
-                Shield image provided by <a href="http://shields.io">shields.io</a> <code id="badge-link">https://img.shields.io/badge/&lt;SUBJECT&gt;-&lt;STATUS&gt;-&lt;COLOR&gt;.svg</code>
-                <img id="badge-image" src="https://img.shields.io/badge/<SUBJECT>-<STATUS>-<COLOR>.svg">
-            </div>
-        </div>
-
-        <div class="row" style="margin-top: 20px;">
-            <div class="col-lg-12">
-                <ul class="list-group" id="dependency-results-list-group">
-
-                </ul>
-            </div>
-        </div>
-
     </div>
+    <div class="row">
+        <div class="col-lg-10">
+            <input class="form-control input-lg" name="pom-url-txt" id="pom-url-txt" type="text"
+                   placeholder="pom.xml url">
+        </div>
+        <div class="col-lg-2">
+            <button type="button" id="check-pom-btn" class="btn btn-primary btn-lg" style="width: 100%;">Check</button>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-lg-12">
+            Shield image provided by <a href="http://shields.io">shields.io</a> <code id="badge-link">https://img.shields.io/badge/&lt;SUBJECT&gt;-&lt;STATUS&gt;-&lt;COLOR&gt;.svg</code>
+            <img id="badge-image" src="https://img.shields.io/badge/<SUBJECT>-<STATUS>-<COLOR>.svg">
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-lg-12">
+            <ul class="list-group" id="dependency-results-list-group">
+
+            </ul>
+        </div>
+    </div>
+
+</div>
 
 </body>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
