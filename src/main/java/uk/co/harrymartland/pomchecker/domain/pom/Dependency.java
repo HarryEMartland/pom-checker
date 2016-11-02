@@ -13,6 +13,15 @@ public class Dependency {
     @XmlElement(namespace = "http://maven.apache.org/POM/4.0.0")
     private String version;
 
+    public Dependency() {
+    }
+
+    public Dependency(String groupId, String artifactId, String version) {
+        this.groupId = groupId;
+        this.artifactId = artifactId;
+        this.version = version;
+    }
+
     public String getGroupId() {
         return groupId;
     }

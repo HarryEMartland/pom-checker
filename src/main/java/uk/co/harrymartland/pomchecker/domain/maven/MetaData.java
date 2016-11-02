@@ -18,4 +18,12 @@ public class MetaData {
     public Versioning getVersioning() {
         return versioning;
     }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public String getArtifactId() {
+        return artifactId;
+    }
 }

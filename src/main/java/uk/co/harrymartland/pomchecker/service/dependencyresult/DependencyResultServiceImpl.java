@@ -7,6 +7,7 @@ import static uk.co.harrymartland.pomchecker.domain.result.DependencyDifference.
 import static uk.co.harrymartland.pomchecker.domain.result.DependencyDifference.UP_TO_DATE;
 import com.google.common.collect.Lists;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ import uk.co.harrymartland.pomchecker.domain.result.DependencyResult;
 public class DependencyResultServiceImpl implements DependencyResultService {
 
     @Override
-    public DependencyResult createDependencyResult(MetaData metaData, Dependency dependency, List<String> ignoreDependencies, List<String> ignoreVersionsContaining) {
+    public DependencyResult createDependencyResult(MetaData metaData, Dependency dependency, List<String> ignoreDependencies, List<String> ignoreVersionsContaining, Map<String, String> properties) {
 
         final String latestVersion = getLatestVersionExcludingVersions(metaData, ignoreVersionsContaining);
         final DependencyDifference difference;
